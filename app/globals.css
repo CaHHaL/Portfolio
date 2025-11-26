@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  :focus-visible {
+    outline: 2px solid theme("colors.neon");
+    outline-offset: 4px;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+body {
+  background: radial-gradient(circle at top, #0a1533, #030714);
+  min-height: 100vh;
+}
+
+a {
+  color: #4de1ff;
+  transition: color 150ms ease;
+}
+
+a:hover {
+  color: #82f7ff;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 50;
+  transform: translateY(-150%);
+  opacity: 0;
+  border-radius: 999px;
+  background: #4de1ff;
+  color: #050a1f;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: transform 150ms ease, opacity 150ms ease;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
