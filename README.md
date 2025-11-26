@@ -1,4 +1,4 @@
-# Sakshi Agarwalla — Portfolio
+# Cahal Agarwalla — Portfolio
 
 Next.js (App Router) portfolio for cybersecurity work by Sakshi Agarwalla.
 
