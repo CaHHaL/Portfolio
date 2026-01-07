@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import Nav from "@/components/Nav";
 import SkipLink from "@/components/SkipLink";
 import { ThemeProvider } from "@/hooks/useTheme";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"], display: "swap" });
+const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
+const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], display: "swap", variable: "--font-mono" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.example.com"),
@@ -62,11 +63,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${inter.className} bg-navy text-white antialiased selection:bg-neon/30 selection:text-white`}
+        className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-slate-50 text-slate-900 antialiased selection:bg-neon/30 selection:text-white dark:bg-navy dark:text-white`}
       >
         <SkipLink />
         <ThemeProvider>
-          <div className="flex min-h-screen flex-col bg-gradient-to-b from-navy via-[#050b21] to-black">
+          <div className="flex min-h-screen flex-col bg-gradient-to-b from-slate-50 via-slate-100 to-slate-200 dark:from-navy dark:via-[#050b21] dark:to-black">
             <Nav />
             <main id="main-content" className="flex-1 px-4 py-8 sm:px-6 lg:px-10">
               {children}

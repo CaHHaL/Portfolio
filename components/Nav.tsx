@@ -1,41 +1,65 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useTheme } from "@/hooks/useTheme";
 
 const NAV_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Projects", href: "/projects" },
-  { label: "Experience", href: "/experience" },
-  { label: "Certificates", href: "/certificates" },
-  { label: "Achievements", href: "/achievements" },
-  { label: "Contact", href: "/contact" }
+  { label: "Home", href: "#home" },
+  { label: "About", href: "#about" },
+  { label: "Projects", href: "#projects" },
+  { label: "Experience", href: "#experience" },
+  { label: "Certificates", href: "#certificates" },
+  { label: "Achievements", href: "#achievements" },
+  { label: "Contact", href: "#contact" }
 ];
 
 export default function Nav() {
   const { theme, toggleTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [activeHash, setActiveHash] = useState("#home");
 
   useEffect(() => {
     setMounted(true);
+
+    // Simple scroll spy logic
+    const handleScroll = () => {
+      const sections = NAV_LINKS.map(link => link.href.substring(1));
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top >= 0 && rect.top <= 300) {
+            setActiveHash(`#${section}`);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavClick = () => setIsOpen(false);
+  const handleNavClick = (hash: string) => {
+    setIsOpen(false);
+    setActiveHash(hash);
+  };
+
   const modeLabel = mounted ? (theme === "light" ? "Dark" : "Light") : "Toggle";
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-navy/80 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur dark:border-white/10 dark:bg-navy/80">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-10">
-        <Link
+        <a
           href="#home"
-          className="text-lg font-semibold tracking-tight text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/80"
+          onClick={() => handleNavClick("#home")}
+          className="text-lg font-semibold tracking-tight text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/80 dark:text-white"
         >
           Cahal<span className="text-neon">.</span>
-        </Link>
+        </a>
         <nav className="hidden items-center gap-6 md:flex">
           {NAV_LINKS.map((link) => (
             <motion.div
@@ -43,26 +67,21 @@ export default function Nav() {
               whileHover={{ y: -2 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
-              <Link
+              <a
                 href={link.href}
-                className="text-sm text-slate-200 transition hover:text-neon focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/80"
+                onClick={() => setActiveHash(link.href)}
+                className={`text-sm transition hover:text-neon focus-visible:rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/80 ${activeHash === link.href ? "text-neon" : "text-slate-600 dark:text-slate-200"
+                  }`}
               >
                 {link.label}
-              </Link>
+              </a>
             </motion.div>
           ))}
-          <button
-            type="button"
-            onClick={toggleTheme}
-            className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white transition hover:border-neon/60 hover:text-neon focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/80"
-          >
-            {modeLabel} Mode
-          </button>
         </nav>
         <button
           type="button"
           aria-label="Toggle navigation"
-          className="relative flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white transition hover:border-neon/60 hover:text-neon focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/80 md:hidden"
+          className="relative flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-slate-900 transition hover:border-neon/60 hover:text-neon focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/80 dark:border-white/15 dark:text-white md:hidden"
           onClick={() => setIsOpen((prev) => !prev)}
         >
           <motion.span
@@ -91,34 +110,27 @@ export default function Nav() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="border-t border-white/10 bg-navy/90 px-4 pb-6 pt-2 backdrop-blur sm:px-6"
+            className="border-t border-slate-200 bg-white/95 px-4 pb-6 pt-2 backdrop-blur dark:border-white/10 dark:bg-navy/90 sm:px-6"
           >
             <ul className="flex flex-col gap-2">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
-                  <Link
+                  <a
                     href={link.href}
-                    onClick={handleNavClick}
-                    className="flex items-center justify-between rounded-lg border border-white/10 px-4 py-3 text-sm text-slate-100 transition hover:border-neon/60 hover:text-neon focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/80"
+                    onClick={() => handleNavClick(link.href)}
+                    className={`flex items-center justify-between rounded-lg border border-slate-200 px-4 py-3 text-sm transition hover:border-neon/60 hover:text-neon focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/80 dark:border-white/10 ${activeHash === link.href ? "text-neon" : "text-slate-600 dark:text-slate-100"
+                      }`}
                   >
                     {link.label}
-                    <motion.span
-                      className="h-2 w-2 rounded-full bg-neon"
-                      layoutId="nav-indicator"
-                    />
-                  </Link>
+                    {activeHash === link.href && (
+                      <motion.span
+                        className="h-2 w-2 rounded-full bg-neon"
+                        layoutId="nav-indicator"
+                      />
+                    )}
+                  </a>
                 </li>
               ))}
-              <button
-                type="button"
-                onClick={() => {
-                  toggleTheme();
-                  setIsOpen(false);
-                }}
-                className="rounded-lg border border-white/10 px-4 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:border-neon/60 hover:text-neon focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/80"
-              >
-                {modeLabel} Mode
-              </button>
             </ul>
           </motion.div>
         ) : null}
@@ -126,4 +138,3 @@ export default function Nav() {
     </header>
   );
 }
-

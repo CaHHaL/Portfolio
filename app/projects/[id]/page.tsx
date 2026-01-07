@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+// Removed unused Link import
 import { notFound } from "next/navigation";
 import { motion } from "framer-motion";
 import type { Metadata } from "next";
@@ -15,7 +15,7 @@ const PROJECT_DETAILS: Record<string, ProjectDetail> = {
     image: "/projects/malware-detection.jpg",
     badges: ["Behavioral AI", "EDR"],
     demoUrl: "https://example.com/malware-detection-demo",
-    repoUrl: "https://github.com/sakshiagarwalla/malware-behavior-detection",
+    repoUrl: "https://github.com/cahalagarwalla/malware-behavior-detection",
     description:
       "Telemetry-driven behavioral scoring engine that highlights anomalous process chains while staying clear of unsafe payloads.",
     problem:
@@ -45,7 +45,7 @@ const PROJECT_DETAILS: Record<string, ProjectDetail> = {
     image: "/projects/hash-lab.jpg",
     badges: ["Blue Team", "Education"],
     demoUrl: "https://example.com/hash-lab",
-    repoUrl: "https://github.com/sakshiagarwalla/hash-lab",
+    repoUrl: "https://github.com/cahalagarwalla/hash-lab",
     description:
       "Educational lab with anonymized artifacts that demonstrates why strong hashing and monitoring matter.",
     problem:
@@ -72,7 +72,7 @@ const PROJECT_DETAILS: Record<string, ProjectDetail> = {
     image: "/projects/vwa.jpg",
     badges: ["AppSec", "Training"],
     demoUrl: "https://example.com/vulnerable-web-app",
-    repoUrl: "https://github.com/sakshiagarwalla/vulnerable-web-app",
+    repoUrl: "https://github.com/cahalagarwalla/vulnerable-web-app",
     description:
       "Sanitized training portal with intentionally insecure flows to teach developers secure coding patterns.",
     problem:
@@ -99,7 +99,7 @@ export function generateMetadata({
   if (!project) return { title: "Project Not Found" };
 
   return {
-    title: `${project.title} | Sakshi Agarwalla`,
+    title: `${project.title} | Cahal Agarwalla`,
     description: project.description,
     openGraph: {
       title: project.title,

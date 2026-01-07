@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import type { ProjectDetail } from "@/types/project";
 
@@ -22,22 +21,22 @@ export default function ClientProjectDetail({ project }: { project: ProjectDetai
         </h1>
         <p className="mt-4 text-slate-200">{project.description}</p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <Link
+          <a
             href={project.demoUrl}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center justify-center rounded-full bg-neon px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-navy transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
             Live Demo
-          </Link>
-          <Link
+          </a>
+          <a
             href={project.repoUrl}
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:border-neon/60 hover:text-neon focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/80"
           >
             View Repository
-          </Link>
+          </a>
         </div>
       </motion.header>
 

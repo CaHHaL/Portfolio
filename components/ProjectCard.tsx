@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+// Removed Next.js Link import for external URLs
 import { motion } from "framer-motion";
 import type { Project } from "@/types/project";
 
@@ -44,22 +44,22 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           <p className="text-sm text-slate-300">{project.tagline}</p>
         </div>
         <div className="mt-auto grid gap-3 sm:grid-cols-2">
-          <Link
+          <a
             href={project.demoUrl}
             className="inline-flex items-center justify-center rounded-full bg-neon px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-navy transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             target="_blank"
             rel="noreferrer"
           >
             Demo
-          </Link>
-          <Link
+          </a>
+          <a
             href={project.repoUrl}
             className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:border-neon/60 hover:text-neon focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon/80"
             target="_blank"
             rel="noreferrer"
           >
             GitHub
-          </Link>
+          </a>
         </div>
       </div>
     </motion.article>
